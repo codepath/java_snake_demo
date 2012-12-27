@@ -5,6 +5,7 @@ import java.awt.Point;
 
 public class Apple extends GameActor {
 	// Defines the color of the apple
+	private final Color BORDER_COLOR = new Color(Integer.parseInt("8C1717", 16));
 	private final Color DRAW_COLOR = Color.red;
 
 	// Defines the coordinate for the apple
@@ -40,5 +41,7 @@ public class Apple extends GameActor {
 		// Paint apple as an oval
 		g.setColor(DRAW_COLOR);
 		g.fillOval(tilePoint.x, tilePoint.y, this.tileWidth, this.tileHeight);
+		g.setColor(BORDER_COLOR);
+		g.drawOval(tilePoint.x, tilePoint.y, this.tileWidth, this.tileHeight);
 	}
 }
