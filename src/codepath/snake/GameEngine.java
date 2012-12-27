@@ -27,11 +27,13 @@ public class GameEngine extends JPanel implements ActionListener {
 
 	// Define the delay between 'ticks' of the timer
 	// Timer will trigger actionPerformed method every 100ms
-	private final int DELAY = 120;
+	private int currentDelay = 150;
+	private int currentScore = 0;
 	
 	// Keeps track of if the game is currently running
 	// Game stops when a game over condition is reached (i.e snake hits the wall)
 	private boolean isGameRunning;
+	private boolean isGamePaused;
 	
 	// Defines snake object for game board
 	private Snake snake;
@@ -56,7 +58,7 @@ public class GameEngine extends JPanel implements ActionListener {
 		// Creates and initiates the timer every DELAY interval
 		// to generate 'ticks' that cause game action to occur.
 		// Each tick fires 'actionPerformed' method to move game forward.
-		timer = new Timer(DELAY, this);
+		timer = new Timer(currentDelay, this);
 		timer.start();
 	}
 	
@@ -79,6 +81,11 @@ public class GameEngine extends JPanel implements ActionListener {
 			snake.paintActor(g2d);
 			// Draw score
 			drawScore(g);
+			
+			// Draw paused if game is paused
+		    if (isGamePaused) {
+			  drawCenterText("Paused! (Press 'p' to unpause)", g);
+			}
 
 			// Tell the System to do the Drawing now,
 			// otherwise it can take a few extra ms until
@@ -89,13 +96,12 @@ public class GameEngine extends JPanel implements ActionListener {
 			g.dispose();
 		} else {
 			// If game is not running, then the game is over...
-			drawGameOver(g);
-		}
+			drawCenterText("Game Over! (Press 'g' to restart)", g);
+		}  
 	}
 
 	// Paint the game over text
-	private void drawGameOver(Graphics g) {
-		String msg = "Game Over! (Press 'g' to restart)";
+	private void drawCenterText(String msg, Graphics g) {
 		Font small = new Font("Helvetica Nueue", Font.BOLD, 16);
 		FontMetrics metr = this.getFontMetrics(small);
 
@@ -106,8 +112,7 @@ public class GameEngine extends JPanel implements ActionListener {
 
 	// Paint the score at the top left
 	private void drawScore(Graphics g) {
-		int score = ((snake.getNumTiles() * DELAY) - (snake.INITIAL_SNAKE_TILES * DELAY));
-		String msg = "Score: " + score;
+		String msg = "Score: " + currentScore;
 		Font small = new Font("Helvetica Nueue", Font.BOLD, 16);
 		g.setColor(Color.black);
 		g.setFont(small);
@@ -120,10 +125,10 @@ public class GameEngine extends JPanel implements ActionListener {
 	// conditions (apple hit or game over) and moving the snake.
 	public void actionPerformed(ActionEvent e) {
 		// If game is running, check conditions and move
-		if (isGameRunning) {
+		if (isGameRunning && !isGamePaused) {
 			checkApple();
 			checkBoundsCollision();
-			snake.move();
+			snake.move();			
 		}
 		
 		// This triggers the panel to be repainted after movement occurs
@@ -141,15 +146,26 @@ public class GameEngine extends JPanel implements ActionListener {
 		// Place the apple tile on the board
 		apple.reposition(WIDTH / TILE_WIDTH);
 		// Mark game as running
+		currentDelay = 150;
+		currentScore = 0;
 		isGameRunning = true;	
+		isGamePaused = false;
+		if (timer != null) { timer.setDelay(currentDelay); }
 	}
 
 	// Check if the snake has eaten the apple
 	// If the snake has, increase snake length and reposition apple
 	public void checkApple() {
 		if (snake.hasHitApple(apple)) {
+			// Move apple and grow snake tail by one
 			snake.growTail();
 			apple.reposition(WIDTH / TILE_WIDTH);
+			// Adjust score based on current delay
+			currentScore += currentDelay;
+			// Increase delay once every 10 apples
+			if (snake.getNumTiles() % 10 == 0 && currentDelay > 75) { 
+				timer.setDelay(currentDelay -= 25); 
+		    } 
 		}
 	}
 	
@@ -190,6 +206,11 @@ public class GameEngine extends JPanel implements ActionListener {
 			// Restart game if it's over
 			if ((key == KeyEvent.VK_G) && isGameRunning == false) {
 			  initGameBoard();
+			}
+			
+			// Support pausing and unpausing
+			if ((key == KeyEvent.VK_P) && isGameRunning == true) {
+		      isGamePaused = !isGamePaused;
 			}
 		}
 	}
