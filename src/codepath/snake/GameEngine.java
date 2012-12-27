@@ -161,7 +161,7 @@ public class GameEngine extends JPanel implements ActionListener {
 			snake.growTail();
 			apple.reposition(WIDTH / TILE_WIDTH);
 			// Adjust score based on current delay
-			currentScore += currentDelay;
+			currentScore += 200 - currentDelay;
 			// Increase delay once every 10 apples
 			if (snake.getNumTiles() % 10 == 0 && currentDelay > 75) { 
 				timer.setDelay(currentDelay -= 25); 
