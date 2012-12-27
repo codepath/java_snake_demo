@@ -42,8 +42,13 @@ public class Snake extends GameActor {
 	// When snake head is directly on the apple tile,
 	// apple is then hit
 	public boolean hasHitApple(Apple appleTile) {
-		return ((tilePoints[0].x == appleTile.getXPos())
-			     && (tilePoints[0].y == appleTile.getYPos()));
+		for (int ind = this.numTiles; ind >= 0; ind--) {
+			if ((tilePoints[ind].x == appleTile.getXPos())
+				     && (tilePoints[ind].y == appleTile.getYPos())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	// Check if the snake ran into itself
@@ -60,16 +65,8 @@ public class Snake extends GameActor {
 	// Check if snake ran into the boundaries of the game board
 	// Game is over if the snake head are outside board bounds
 	public boolean hasHitBounds(int width, int height) {
-		if (tilePoints[0].x > width) {
-			return true;
-		} else if (tilePoints[0].x < 0) {
-			return true;
-		} else if (tilePoints[0].y < 0) {
-			return true;
-		} else if (tilePoints[0].y > height) {
-			return true;
-		}
-		return false;
+		return (tilePoints[0].x < 0) || (tilePoints[0].x > width) || 
+		  (tilePoints[0].y < 0) || (tilePoints[0].y > height);
 	}
 	
 	// Moves the snake in the current direction
