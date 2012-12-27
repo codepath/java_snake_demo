@@ -15,7 +15,7 @@ public class GameRunner {
 		// and set the window visible
 		gameFrame.setSize(625, 645);
 		gameFrame.setLocationRelativeTo(null);
-		gameFrame.add(new SnakeGame());
+		gameFrame.add(new GameEngine());
 		gameFrame.setVisible(true);
 	}
 }
