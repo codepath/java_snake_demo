@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-public class Apple extends GameActor {
+public class AppleActor extends GameActor {
 	// Defines the color of the apple
 	private final Color BORDER_COLOR = new Color(Integer.parseInt("8C1717", 16));
 	private final Color DRAW_COLOR = Color.red;
@@ -11,7 +11,7 @@ public class Apple extends GameActor {
 	// Defines the coordinate for the apple
 	private Point tilePoint = new Point();
 
-	public Apple(int tileWidth, int tileHeight) {
+	public AppleActor(int tileWidth, int tileHeight) {
 		super(tileWidth, tileHeight);
 	}
 	

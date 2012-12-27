@@ -36,10 +36,10 @@ public class GameEngine extends JPanel implements ActionListener {
 	private boolean isGamePaused;
 	
 	// Defines snake object for game board
-	private Snake snake;
+	private SnakeActor snake;
 	
 	// Defines apple object for game board
-	private Apple apple;
+	private AppleActor apple;
 	
 	// Creates a timer which 'ticks' and will trigger
 	// the actionPerformed method every X interval
@@ -139,8 +139,8 @@ public class GameEngine extends JPanel implements ActionListener {
 	// Set initial game values, position initial snake and apple
 	public void initGameBoard() {
 		// Initialize snake and apple
-		snake = new Snake(TILE_WIDTH, TILE_HEIGHT);
-		apple = new Apple(TILE_WIDTH, TILE_HEIGHT);
+		snake = new SnakeActor(TILE_WIDTH, TILE_HEIGHT);
+		apple = new AppleActor(TILE_WIDTH, TILE_HEIGHT);
 		// Place the snake on the board
 		snake.setStartPos((WIDTH / 2) - 100, (HEIGHT / 2));
 		// Place the apple tile on the board
