@@ -1,9 +1,9 @@
-package codepath.snake;
+package codepath.snake.actors;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-public class SnakeActor extends GameActor {
+public class Snake extends GameActor {
 	private final Color HEAD_COLOR = new Color(Integer.parseInt("215E21", 16));
 	private final Color TAIL_COLOR = Color.green;
 
@@ -18,7 +18,7 @@ public class SnakeActor extends GameActor {
 	// This keeps track of where the snake should go next.
 	private String direction;
 
-	public SnakeActor(int tileWidth, int tileHeight) {
+	public Snake(int tileWidth, int tileHeight) {
 		super(tileWidth, tileHeight);
 		direction = "right";
 		numTiles = INITIAL_SNAKE_TILES;
@@ -41,7 +41,7 @@ public class SnakeActor extends GameActor {
 	
 	// When snake head is directly on the apple tile,
 	// apple is then hit
-	public boolean hasHitApple(AppleActor appleTile) {
+	public boolean hasHitApple(Apple appleTile) {
 		return ((tilePoints[0].x == appleTile.getXPos())
 			     && (tilePoints[0].y == appleTile.getYPos()));
 	}

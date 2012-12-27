@@ -1,4 +1,4 @@
-package codepath.snake;
+package codepath.snake.actors;
 import java.awt.Graphics;
 
 // Represents an 'actor' in the game, which can be anything on the board
