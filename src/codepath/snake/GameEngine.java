@@ -33,15 +33,15 @@ public class GameEngine extends JPanel implements ActionListener {
 	private int currentDelay = 150;
 	private int currentScore = 0;
 	
-	// Keeps track of if the game is currently running
-	// Game stops when a game over condition is reached (i.e snake hits the wall)
+	// Keeps track of if the game is currently running or paused
+	// Game ends when a "game over" condition is reached (i.e snake hits the wall)
 	private boolean isGameRunning;
 	private boolean isGamePaused;
 	
-	// Defines snake object for game board
+	// Defines snake object on game engine
 	private Snake snake;
 	
-	// Defines apple object for game board
+	// Defines apple object on game engine
 	private Apple apple;
 	
 	// Creates a timer which 'ticks' and will trigger
@@ -51,7 +51,7 @@ public class GameEngine extends JPanel implements ActionListener {
 	private Timer timer;
 
 	// Constructor for the SnakeGame Panel
-	// Creates game board and starts game timer
+	// Creates game engine and starts game timer
 	public GameEngine() {
 		setBackground(Color.lightGray);
 		setFocusable(true);

@@ -36,7 +36,7 @@ public class Snake extends GameActor {
 	
 	// Set the snake direction
 	public void setDirection(String direction) {
-		this.direction = direction;
+	  this.direction = direction;
 	}
 	
 	// When snake head is directly on the apple tile,
