@@ -13,7 +13,7 @@ public class GameRunner {
 
 		// Setup game board with size, add SnakeGame panel
 		// and set the window visible
-		gameFrame.setSize(620, 640);
+		gameFrame.setSize(625, 645);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.add(new SnakeGame());
 		gameFrame.setVisible(true);
