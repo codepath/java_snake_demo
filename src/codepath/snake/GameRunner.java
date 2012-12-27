@@ -1,3 +1,4 @@
+package codepath.snake;
 import javax.swing.JFrame;
 
 public class GameRunner {
